@@ -4,7 +4,8 @@
   "description": "API for atdani.nl",
   "main": "src/server.ts",
   "scripts": {
-    "build": "rm -rf build/ && prettier --write src/ && tsc"
+    "build": "rm -rf build/ && prettier --write src/ && tsc/ && cp .env /build/.env",
+    "devbuild": "prettier --write src/ && tsc"
   },
   "author": "Dani Verhaar",
   "license": "ISC",
