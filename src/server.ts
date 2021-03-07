@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.use('/', api);
 
-app.use(router);
+app.use(subdomain(env.API_SUBDOMAIN, router));
 
 app.use(
     bodyParser.urlencoded({
