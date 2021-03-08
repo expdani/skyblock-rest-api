@@ -9,11 +9,11 @@ const app = express();
 const router = express.Router();
 const cors = require('cors');
 
+app.use(cors());
+
 router.use('/', api);
 
 app.use(subdomain(env.API_SUBDOMAIN, router));
-
-app.use(cors());
 
 app.use(
     bodyParser.urlencoded({
