@@ -10,7 +10,7 @@ router.get('/stats', async (req: Request, res: Response) => {
     const most_upvotes_author = await database('karma_total').max('total as total');
     const most_upvotes_post = await database('karma_posts').where({ vote: 'upvote' }).groupBy('messageID').count('vote as count');
 
-    res.json({
+    res.status(200).json({
         total_upvotes: total_upvotes[0],
         total_downvotes: total_downvotes[0],
         unique_posts: unique_posts[0],

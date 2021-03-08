@@ -7,13 +7,6 @@ import bodyParser from 'body-parser';
 const subdomain = require('express-subdomain');
 const app = express();
 const router = express.Router();
-const cors = require('cors');
-
-app.use(cors());
-
-router.use('/', api);
-
-app.use(subdomain(env.API_SUBDOMAIN, router));
 
 app.use(
     bodyParser.urlencoded({
@@ -22,12 +15,17 @@ app.use(
 );
 app.use(bodyParser.json());
 
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Methods', 'GET,HEAD,OPTIONS,POST,PUT');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization, Content-Type');
-    next();
+    res.header('Acces-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+    if (req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+        return res.status(200).json({});
+    }
 });
+router.use('/', api);
+
+app.use(subdomain(env.API_SUBDOMAIN, router));
 
 const httpServer = http.createServer(app);
 httpServer.listen(env.PORT, () => {
