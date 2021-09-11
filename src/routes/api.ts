@@ -1,8 +1,8 @@
 import express from 'express';
-import stats from './karma/stats';
+import index from './flipper/index';
 
 const router = express.Router();
 
-router.use('/', stats);
+router.use('/', index);
 
 export default router;
